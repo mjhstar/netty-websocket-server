@@ -17,7 +17,7 @@ class WebSocketServerHandler(
 ) : SimpleChannelInboundHandler<WebSocketFrame>() {
 
     override fun userEventTriggered(ctx: ChannelHandlerContext, evt: Any?) {
-        //HandShake 완료 시, streaming 시작
+        //HandShake 완료 시, 작업 시작
         if (evt is WebSocketServerProtocolHandler.HandshakeComplete) {
             webSocketProcessService.process(ctx)
             TODO("웹 소켓 연결 완료, 연결된 웹 소켓에 해야하는 작업을 하는 서비스 호출")
