@@ -2,20 +2,19 @@ package com.websocket.server.common.cache
 
 import java.util.concurrent.ConcurrentHashMap
 
-class CacheStore<K : Any, V> {
-    private val cache = ConcurrentHashMap<K, V>()
+class CacheStore<K : Any, V>: ConcurrentHashMap<K,V>() {
 
     fun getValue(key: K): V? {
-        return cache[key]
+        return this[key]
     }
 
     fun getValues(): List<V> {
-        return cache.values.toList()
+        return this.values.toList()
     }
 
     fun getKey(value: V): K?{
         var key: K? = null
-        cache.forEach { (k, v) ->
+        this.forEach { (k, v) ->
             if(v == value){
                 key = k
                 return@forEach
@@ -28,11 +27,11 @@ class CacheStore<K : Any, V> {
         if(getValues().contains(value)){
             return
         }
-        cache[key] = value
+        this[key] = value
     }
 
     fun removeByKey(key: K) {
-        cache.remove(key)
+        this.remove(key)
     }
 
     fun removeByValue(value: V) {
@@ -41,7 +40,6 @@ class CacheStore<K : Any, V> {
     }
 
     fun getValueOrDefault(key: K, defaultValue: V): V {
-        return cache.getOrDefault(key, defaultValue)
+        return this.getOrDefault(key, defaultValue)
     }
-
 }
